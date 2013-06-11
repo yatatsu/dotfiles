@@ -3,7 +3,7 @@
 ;;; yatatsukitagawa <yatatsukitagwa@gmail.com>
 
 ;; ~/.emacs.d/elisp ディレクトリ
-;; (add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'load-path "~/.emacs.d/elisp")
 
 ;; for under-23 version
 (when (> emacs-major-version 23)
@@ -26,6 +26,14 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf") ;point to directory which has conf file.
 
+;; package.el
+(require 'package)
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+	     '("ELPA" . "http://tromey.com/elpa"))
+(package-initialize)
+
 ;; for Mac
 (when (eq system-type 'darwin)
   (require 'ucs-normalize)
@@ -43,9 +51,6 @@
 ;; cl
 (require 'cl)
 
-;; Locale
-(set-locale-environment nil)
-
 ;; yes => y, no => n
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -59,7 +64,6 @@
 ;; C-h as backspace
 (keyboard-translate ?\C-h ?\C-?)
 (global-set-key "\C-h" nil)
-
 (global-set-key (kbd "C-x ?") 'help-command)
 
 ;; 折り返しトグルコマンド
@@ -71,7 +75,9 @@
 
 ;; C-. as redo
 ;; http://www.emacswiki.org/emacs/download/redo+.el
-
+(when (require 'redo+ nil t)
+  (global-set-key (kbd "C-.") 'redo)
+  )
 
 ;; -----------------
 ;; coding
@@ -134,7 +140,8 @@
 
 (when (require 'color-theme nil t)
   ;; テーマを読み込むための設定
-  (color-theme-initialize))
+  (color-theme-initialize)
+  (color-theme-hober))
 
 ;; ------------------
 ;; font
@@ -143,21 +150,24 @@
 (set-face-attribute 'default nil
 		    :family "Menlo"
 		    :height 120)
-(set-fontset-font
- nil 'japanese-jisx0208
- (font-spec :family "Hiragino Mincho Pro"))
-(font-spec :family "ヒラギノ明朝 Pro"))
-;; ひらがなとカタカナはモトヤシーダ
-(set-fontset-font
- nil '(#x3040 #x30ff)
- (font-spec :family "NfMotoyaCeder"))
-;; フォントの横幅を調節
-(setq face-font-rescale-alist
+(when (require 'font-family-list nil t)
+  (set-fontset-font
+   nil 'japanese-jisx0208
+   ;; English name
+   ;; (font-spec :family "Hiragino Mincho Pro"))
+   (font-spec :family "ヒラギノ明朝 Pro"))
+  ;; ひらがなとカタカナはモトヤシーダ
+  (set-fontset-font
+   nil '(#x3040 #x30ff)
+   (font-spec :family "NfMotoyaCeder"))
+  ;; フォントの横幅を調節
+  (setq face-font-rescale-alist
       '((".*Menlo.*" . 1.0)
 	(".*Hiragino_Mincho_Pro.*" . 1.2)
 	(".*nfmotoyaceder-bold.*" . 1.2)
 	(".*nfmotoyaceder-medium.*" . 1.2)
 	("-cdac$" . 1.3)))
+  )
 
 ;; highlignt
 (defface my-hl-line-face
@@ -184,22 +194,26 @@
 ;; ------------------
 ;; auto-save
 ;; ------------------
-;; バックアップファイルの作成場所をTempディレクトリに
+;; バックアップファイルの作成場所をauto-save-listに
+(add-to-list 'backup-directory-alist
+	     (cons "." "~/.emacs.d/auto-save-list/"))
+(setq auto-save-file-name-transforms
+      `((".*" , (expand-file-name "~/.emacs.d/auto-save-list/") t)))
 
 ;; ------------------
 ;; hook
 ;; ------------------
 ;; ファイルが#!から始まる場合, +xをつけて保存
 (add-hook 'after-save-hook
-	  'executable-make-buffer-file-executable-if-script-p)
+	    'executable-make-buffer-file-executable-if-script-p)
 
 ;; emacs-lisp-mode-hook用の関数を定義
 (defun elisp-mode-hooks ()
-  "lisp-mode-hooks"
-  (when (require 'eldoc nil t)
-    (setq eldoc-idle-delay 0.2)
-    (setq eldoc-echo-area-use-multiline-p t)
-    (turn-on-eldoc-mode)))
+    "lisp-mode-hooks"
+      (when (require 'eldoc nil t)
+	    (setq eldoc-idle-delay 0.2)
+	        (setq eldoc-echo-area-use-multiline-p t)
+		    (turn-on-eldoc-mode)))
 ;; emacs-lisp-modeのフックをセット
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
@@ -208,11 +222,11 @@
 ;; ------------------
 ;; auto install
 (when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;; EmacsWikiに登録されているelisp名を取得
-  (auto-install-update-emacswiki-package-name t)
-  ;; プロキシ設定
-  (setq url-proxy-services '(("http" . "localhost:8339")))
-  ;; install-elisp の関数を利用可能に
-  (auto-install-compatibility-setup))
+    (setq auto-install-directory "~/.emacs.d/elisp/")
+      ;; EmacsWikiに登録されているelisp名を取得
+      (auto-install-update-emacswiki-package-name t)
+        ;; プロキシ設定
+;;      (setq url-proxy-services '(("http" . "localhost:8339")))
+	  ;; install-elisp の関数を利用可能に
+	  (auto-install-compatibility-setup))
 
