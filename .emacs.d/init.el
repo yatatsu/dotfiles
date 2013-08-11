@@ -107,8 +107,8 @@
 ;; (setq display-time-day-and-date t)
 ;; (setq display-time-24hr-format t)
 (display-time-mode t)
-;; battery
 (display-battery-mode t)
+;; battery
 
 ;; リージョン内の行数と文字数をモードラインに表示
 ;; http://d.hatena.ne.jp/sonota88/20110224/1298557375
@@ -188,8 +188,8 @@
 ;; paren style
 (setq show-paren-style 'expression)
 ;; change face
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "yellow")
+(setq show-paren-match-face nil)
+(setq show-paren-match-face "yellow")
 
 ;; ------------------
 ;; auto-save
@@ -230,3 +230,125 @@
 	  ;; install-elisp の関数を利用可能に
 	  (auto-install-compatibility-setup))
 
+;; ------------------
+;; anything
+;; ------------------
+;; (auto-install-batch "anything")
+(when (require 'anything nil t)
+  (setq
+   ;; 候補を表示するまでの時間. デフォルトは0.5
+   anything-idle-delay 0.3
+   ;; タイプして再描写するまでの時間. デフォルトは0.1
+   anything-input-idle-delay 0.2
+   ;; 候補の最大表示数. デフォルトは0.1
+   anything-candidate-number-limit 100
+   ;; 候補が多い時に体感速度を早くする
+   anything-quick-update t
+   ;; 候補洗濯ショートカットをアルファベットに
+   anything-enable-shortcuts 'alphabet)
+
+  (when (require 'anything-config nil t)
+    ;; root権限でアクションを実行するコマンド
+    ;; デフォルトはsu
+    (setq anything-su-or-sudo "sudo"))
+
+  (require 'anything-match-plugin nil t)
+
+  (when (and (executable-find "cmigemo")
+	     (require 'migemo nil t))
+    (require 'anything-migemo nil t))
+
+  (when (require 'anything-complete nil t)
+    ;; lispシンボルの補完候補の再検索時間
+    (anything-lisp-complete-symbol-set-timer 150))
+
+  (require 'anything-show-completion nil t)
+
+  (when (require 'descbinds-anything nil t)
+    ;; describle-bindingsをAnythingを置き換える
+    (descbinds-anything-install)))
+
+;; M-yにanything-show-kill-ringを割り当てる
+(define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+
+;; ---------------------------
+;; moccur
+;; ---------------------------
+(when (require 'anything-c-moccur nil t)
+  (setq
+   ;; anything-c-moccur用 'anything-idle-delay'
+   anything-c-moccur-anything-idle-delay 0.1
+   ;; バッファの情報をハイライトする
+   anything-c-moccur-highlight-into-line-flag t
+   ;; 現在選択中の候補の位置を他のwindowに表示する
+   anything-c-moccur-enable-auto-look-flag t
+   ;; 起動時にポイントの位置の単語を初期パターンにする
+   anything-c-moccur-enable-initial-pattern t)
+  ;; C-M-o にanything-c-moccur-occur-by-moccurを割り当てる
+  (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
+
+;; color-moccurの設定
+(when (require 'color-moccur nil t)
+  ;; M-oにoccur-by-moccurを割り当て
+  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  ;; スペース区切りでAND検索
+  (setq moccur-split-word t)
+  ;; ディレクトリ検索の時除外するファイル
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+  ;; Migemoを利用できる環境があればMigemoを使う
+  (when (and (executable-find "cmigemo")
+	     (require 'migemo nil t))
+    (setq moccur-use-migemo t)))
+
+
+;; moccur-edit
+(require 'moccur-edit nil t)
+
+;; moccur-edit-finish-editと同時にファイルを保存する
+(defadvice moccur-edit-change-file
+  (after save-after-moccur-edit-buffer activate)
+  (save-buffer))
+
+;; ---------------------------
+;; wgrep
+;; ---------------------------
+;; M-x package-install RET wgrep RET
+(require 'wgrep nil t)
+
+;; ---------------------------
+;; auto-complete
+;; ----------------------------
+;; auto-completeの設定
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories
+	       "~/.emacs.d/elisp/ac-dict")
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  (ac-config-default))
+
+;; ----------------------------
+;; undo
+;; ----------------------------
+;; undohist
+(when (require 'undohist nil t)
+  (undohist-initialize))
+
+;; Undo-tree
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+;; point-undo
+(when (require 'point-undo nil t)
+  (define-key global-map (kbd "M-[") 'point-undo)
+  (define-key global-map (kbd "M-]") 'point-redo)
+  )
+
+;; ----------------------------
+;; ElScreen
+;; ----------------------------
+
+(setq ElScreen-prefix-key (kbd "C-t"))
+(when (require 'elscreen nil t)
+  (if window-system
+      (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
+    (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
