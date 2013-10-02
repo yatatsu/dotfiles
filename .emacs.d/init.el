@@ -34,6 +34,11 @@
 	     '("ELPA" . "http://tromey.com/elpa"))
 (package-initialize)
 
+;; cua-mode
+(cua-mode t)
+(setq cua-enable-cua-keys nil) ; disable cua-keybind
+
+
 ;; for Mac
 (when (eq system-type 'darwin)
   (require 'ucs-normalize)
@@ -147,26 +152,15 @@
 ;; font
 ;; ------------------
 ;; for GUI
+;; フォント設定
 (set-face-attribute 'default nil
-		    :family "Menlo"
-		    :height 120)
+                    :family "inconsolata"
+                    :height 140)
+ 
 (when (require 'font-family-list nil t)
   (set-fontset-font
    nil 'japanese-jisx0208
-   ;; English name
-   ;; (font-spec :family "Hiragino Mincho Pro"))
-   (font-spec :family "ヒラギノ明朝 Pro"))
-  ;; ひらがなとカタカナはモトヤシーダ
-  (set-fontset-font
-   nil '(#x3040 #x30ff)
-   (font-spec :family "NfMotoyaCeder"))
-  ;; フォントの横幅を調節
-  (setq face-font-rescale-alist
-      '((".*Menlo.*" . 1.0)
-	(".*Hiragino_Mincho_Pro.*" . 1.2)
-	(".*nfmotoyaceder-bold.*" . 1.2)
-	(".*nfmotoyaceder-medium.*" . 1.2)
-	("-cdac$" . 1.3)))
+   (font-spec :family "TakaoExMincho"))
   )
 
 ;; highlignt
@@ -352,3 +346,8 @@
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+
+;; ----------------------------
+;; 
+;; ----------------------------
+

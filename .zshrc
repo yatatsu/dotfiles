@@ -112,6 +112,6 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # emacs start option
 #
-alias E='emacsclient -t'
+alias E='emacsclient -nw'
 alias kill-emacs="emacsclient -e '(kill-emacs)'"
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
