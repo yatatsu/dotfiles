@@ -1,13 +1,9 @@
 #LANG
 export LANG=ja_JP.UTF-8
 
-fpath=(/opt/local/share/zsh/4.3.17/functions ${fpath})
-
-##RVM
-[ -s /Users/loungenotebook/.rvm/scripts/rvm ] && source /Users/loungenotebook/.rvm/scripts/rvm
-
-##autojump + z.sh
-[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
+#source boxen
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+[ -f /opt/boxen/nvm/nvm.sh ] && source /opt/boxen/nvm/nvm.sh
 
 ## Default shell configuration
 #
@@ -108,10 +104,7 @@ kterm*|xterm*)
   ;;
 esac
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 # emacs start option
 #
 alias E='emacsclient -nw'
 alias kill-emacs="emacsclient -e '(kill-emacs)'"
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
