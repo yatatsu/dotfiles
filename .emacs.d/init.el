@@ -34,6 +34,12 @@
 	     '("ELPA" . "http://tromey.com/elpa"))
 (package-initialize)
 
+;; cl
+(require 'cl)
+
+;; yes => y, no => n
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; cua-mode
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; disable cua-keybind
@@ -52,12 +58,6 @@
 
 (unless (eq window-system 'ns)
   (menu-bar-mode 0))
-
-;; cl
-(require 'cl)
-
-;; yes => y, no => n
-(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; ------------------
 ;; keyboard bind
@@ -112,8 +112,6 @@
 ;; (setq display-time-day-and-date t)
 ;; (setq display-time-24hr-format t)
 (display-time-mode t)
-(display-battery-mode t)
-;; battery
 
 ;; リージョン内の行数と文字数をモードラインに表示
 ;; http://d.hatena.ne.jp/sonota88/20110224/1298557375
@@ -136,7 +134,7 @@
 ;; indent
 ;; ------------------
 ;; Tab
-;; (setq-default tab-width 4)
+(setq-default tab-width 4)
 
 ;; ------------------
 ;; face
@@ -346,5 +344,3 @@
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
-
-;; ----------------------------
