@@ -84,6 +84,9 @@
   (global-set-key (kbd "C-.") 'redo)
   )
 
+;; describe binding
+(global-set-key (kbd "C-c b") 'describe-bindings)
+
 ;; -----------------
 ;; coding
 ;; -----------------
@@ -263,8 +266,27 @@
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 
-;; ---------------------------
-;; moccur
+;; anything-for-document
+(setq anything-for-document-sources
+	  (list anything-c-source-man-pages
+			anything-c-source-info-cl
+			anything-c-source-info-pages
+			anything-c-source-info-elisp
+			anything-c-source-apropos-emacs-commands
+			anything-c-source-apropos-emacs-functions
+			anything-c-source-apropos-emacs-variables))
+(defun anything-for-document ()
+  "Preconfigured `anything' for anything-for-document."
+  (interactive)
+  (anything anything-for-document-sources
+			(thing-at-point 'symbol) nil nil nil
+			"*anything for document*"))
+
+;; Cmd-dにanything-for-document割り当て
+(define-key global-map (kbd "C-c d") 'anything-for-document)
+
+; ---------------------------
+;; Moccur
 ;; ---------------------------
 (when (require 'anything-c-moccur nil t)
   (setq
@@ -363,3 +385,25 @@
 (require 'git-gutter-fringe)
 (global-git-gutter-mode)
 
+;; ----------------------------
+;; multi-term
+;; ----------------------------
+
+(when (require 'multi-term nil t)
+  (setq multi-term-program "/opt/boxen/homebrew/bin/zsh"))
+
+;; ----------------------------
+;; TRAMP
+;; ----------------------------
+(add-to-list 'backup-directory-alist
+			 (cons tramp-file-name-regexp nil))
+
+
+;; ----------------------------
+;; for doc
+;; ----------------------------
+;; キャッシュを作成
+(setq woman-manpath '("/usr/bin/man"
+					  "/usr/share/man"
+					  "/usr/local/share/man"
+					  "/sur/local/share/man/ja"))
