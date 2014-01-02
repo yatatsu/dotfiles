@@ -293,7 +293,6 @@
 	     (require 'migemo nil t))
     (setq moccur-use-migemo t)))
 
-
 ;; moccur-edit
 (require 'moccur-edit nil t)
 
@@ -344,3 +343,23 @@
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+
+;; ----------------------------
+;; anzu
+;; ----------------------------
+
+(when (require 'anzu nil t)
+  (global-anzu-mode +1)
+  (setq anzu-deactivate-region t)
+  (setq anzu-search-threshold 1000)
+  (global-set-key (kbd "C-c r") 'anzu-query-replace)
+  (global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
+  )
+
+;; ----------------------------
+;; git-gutter
+;; ----------------------------
+;; https://github.com/syohex/emacs-git-gutter-fringe
+(require 'git-gutter-fringe)
+(global-git-gutter-mode)
+

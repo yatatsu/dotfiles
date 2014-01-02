@@ -108,3 +108,7 @@ esac
 #
 alias E='emacsclient -nw'
 alias kill-emacs="emacsclient -e '(kill-emacs)'"
+
+# for growl by iterm
+
+REPORTTIME=5
