@@ -78,11 +78,11 @@
 ;; init as transpose-chars
 (global-set-key (kbd "C-t") 'other-window)
 
-;; C-. as redo
+;; C-' as redo
 ;; http://www.emacswiki.org/emacs/download/redo+.el
-(when (require 'redo+ nil t)
-  (global-set-key (kbd "C-.") 'redo)
-  )
+;(when (require 'redo+ nil t)
+;  (global-set-key (kbd "C-'") 'redo)
+;  )
 
 ;; describe binding
 (global-set-key (kbd "C-c b") 'describe-bindings)
@@ -283,10 +283,10 @@
 			"*anything for document*"))
 
 ;; Cmd-dにanything-for-document割り当て
-(define-key global-map (kbd "C-c d") 'anything-for-document)
+(define-key global-map (kbd "s-d") 'anything-for-document)
 
 ; ---------------------------
-;; Moccur
+;; moccur
 ;; ---------------------------
 (when (require 'anything-c-moccur nil t)
   (setq
