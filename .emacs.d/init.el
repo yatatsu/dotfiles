@@ -26,14 +26,6 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf") ;point to directory which has conf file.
 
-;; package.el
-(require 'package)
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-	     '("ELPA" . "http://tromey.com/elpa"))
-(package-initialize)
-
 ;; cl
 (require 'cl)
 
@@ -80,9 +72,9 @@
 
 ;; C-' as redo
 ;; http://www.emacswiki.org/emacs/download/redo+.el
-;(when (require 'redo+ nil t)
-;  (global-set-key (kbd "C-'") 'redo)
-;  )
+(when (require 'redo+ nil t)
+  (global-set-key (kbd "C-'") 'redo)
+  )
 
 ;; describe binding
 (global-set-key (kbd "C-c b") 'describe-bindings)
@@ -123,8 +115,6 @@
       (format "%d lines,%d chars "
 	      (count-lines (region-beginning) (region-end))
 	      (- (region-end) (region-beginning)))
-    ;; これだとエコーエリアがチラつく
-    ;;(count-lines-region (region-beginning) (region-end))
     ""))
 
 (add-to-list 'default-mode-line-format
@@ -144,11 +134,8 @@
 ;; ------------------
 ;; テーマ
 
-(when (require 'color-theme nil t)
-  ;; テーマを読み込むための設定
-  (color-theme-initialize)
-  (color-theme-hober))
-
+(load-theme 'manoj-dark t)
+ 
 ;; ------------------
 ;; font
 ;; ------------------
@@ -183,8 +170,8 @@
 ;; paren style
 (setq show-paren-style 'expression)
 ;; change face
-(setq show-paren-match-face nil)
-(setq show-paren-match-face "yellow")
+(set-face-background 'show-paren-match-face nil)
+(set-face-underline-p 'show-paren-match-face "yellow")
 
 ;; ------------------
 ;; auto-save
@@ -390,7 +377,7 @@
 ;; ----------------------------
 
 (when (require 'multi-term nil t)
-  (setq multi-term-program "/opt/boxen/homebrew/bin/zsh"))
+(setq multi-term-program "/opt/boxen/homebrew/bin/zsh"))
 
 ;; ----------------------------
 ;; TRAMP
