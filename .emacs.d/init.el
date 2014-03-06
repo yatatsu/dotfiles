@@ -58,7 +58,6 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; disable cua-keybind
 
-
 ;; for Mac
 (when (eq system-type 'darwin)
   (require 'ucs-normalize)
@@ -66,9 +65,15 @@
   (setq locale-coding-system 'utf-8-hfs))
 
 ;; except Terminal, hide toolbar and scrollbar
-(when window-system
+(defun my-frame-setting (&optional window-system)
+  "frame setting"
+  (when window-system
   (tool-bar-mode 0)
   (scroll-bar-mode 0))
+  )
+(my-frame-setting)
+(add-hook 'after-make-frame-functions
+		  'my-frame-setting)
 
 (unless (eq window-system 'ns)
   (menu-bar-mode 0))
@@ -400,6 +405,8 @@
 ;; multi-term
 ;; ----------------------------
 
+;;(when (require 'multi-term nil t)
+;;(setq multi-term-program "/opt/boxen/homebrew/bin/zsh"))
 
 ;; ----------------------------
 ;; TRAMP
