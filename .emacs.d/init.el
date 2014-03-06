@@ -29,6 +29,28 @@
 ;; cl
 (require 'cl)
 
+;; ------------------
+;; elisp
+;; ------------------
+;; auto install
+(when (require 'auto-install nil t)
+    (setq auto-install-directory "~/.emacs.d/elisp/")
+      ;; EmacsWikiに登録されているelisp名を取得
+      (auto-install-update-emacswiki-package-name t)
+        ;; プロキシ設定
+;;      (setq url-proxy-services '(("http" . "localhost:8339")))
+	  ;; install-elisp の関数を利用可能に
+	  (auto-install-compatibility-setup))
+
+;; -------------------
+;; package
+;; -------------------
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
 ;; yes => y, no => n
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -134,6 +156,10 @@
 ;; タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 
+;; linum
+(global-linum-mode 1)
+(setq linum-format "%4d ")
+
 ;; ------------------
 ;; indent
 ;; ------------------
@@ -209,19 +235,6 @@
 		    (turn-on-eldoc-mode)))
 ;; emacs-lisp-modeのフックをセット
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
-
-;; ------------------
-;; elisp
-;; ------------------
-;; auto install
-(when (require 'auto-install nil t)
-    (setq auto-install-directory "~/.emacs.d/elisp/")
-      ;; EmacsWikiに登録されているelisp名を取得
-      (auto-install-update-emacswiki-package-name t)
-        ;; プロキシ設定
-;;      (setq url-proxy-services '(("http" . "localhost:8339")))
-	  ;; install-elisp の関数を利用可能に
-	  (auto-install-compatibility-setup))
 
 ;; ------------------
 ;; anything
@@ -377,11 +390,11 @@
   )
 
 ;; ----------------------------
-;; git-gutter
+;; git-gutter-fringe+
 ;; ----------------------------
-;; https://github.com/syohex/emacs-git-gutter-fringe
-(require 'git-gutter-fringe)
-(global-git-gutter-mode)
+
+(require 'git-gutter-fringe+)
+(global-git-gutter+-mode)
 
 ;; ----------------------------
 ;; multi-term
