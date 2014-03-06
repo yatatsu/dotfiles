@@ -1,6 +1,10 @@
 #LANG
 export LANG=ja_JP.UTF-8
 
+#PATH
+export PATH=/usr/local/bin/:$HOME/.rbenv/shims:$PATH
+eval "$(rbenv init -)"
+
 #source boxen
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 [ -f /opt/boxen/nvm/nvm.sh ] && source /opt/boxen/nvm/nvm.sh
@@ -106,10 +110,16 @@ esac
 
 # emacs start option
 #
-alias E='emacsclient -nw'
-alias kill-emacs="emacsclient -e '(kill-emacs)'"
-alias EMACS='emacsclient -c'
+alias start-emacs="/usr/local/Cellar/emacs/HEAD/bin/emacs --daemon"
+alias E='/usr/local/Cellar/emacs/HEAD/bin/emacsclient -nw'
+alias kill-emacs="/usr/local/Cellar/emacs/HEAD/bin/emacsclient -e '(kill-emacs)'"
+alias EMACS='/usr/local/Cellar/emacs/HEAD/bin/emacsclient -c'
+
 
 # for growl by iterm
 
 REPORTTIME=5
+export PGDATA=/usr/local/var/postgres
+
+# editor
+export EDITOR=E

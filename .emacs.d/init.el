@@ -59,9 +59,20 @@
 (global-set-key (kbd "C-m") 'newline-and-indent)
 
 ;; C-h as backspace
-(keyboard-translate ?\C-h ?\C-?)
-(global-set-key "\C-h" nil)
-(global-set-key (kbd "C-x ?") 'help-command)
+(defun my-backspace-setting (&optional frame)
+  "setup keyboard translate"
+  (when frame
+	(select-frame frame))
+  (keyboard-translate ?\C-h ?\C-?)
+  (global-set-key "\C-h" nil)
+  (global-set-key (kbd "C-x ?") 'help-command)
+  )
+(my-backspace-setting)
+(add-hook 'after-make-frame-functions
+		  'my-backspace-setting)
+
+(setq backward-delete-char-untabify-method 'hungry)
+  
 
 ;; 折り返しトグルコマンド
 (global-set-key (kbd "C-c l") 'toggle-truncate-lines)
@@ -73,7 +84,7 @@
 ;; C-' as redo
 ;; http://www.emacswiki.org/emacs/download/redo+.el
 (when (require 'redo+ nil t)
-  (global-set-key (kbd "C-'") 'redo)
+  (global-set-key (kbd "C-.") 'redo)
   )
 
 ;; describe binding
@@ -161,8 +172,8 @@
      (:background "LightGoldenrodYellow" t))
     (t (:bold t)))
   "hl-line's my face")
-(setq hl-line-face 'my-hl-line-face)
-(global-hl-line-mode t)
+;;(setq hl-line-face 'my-hl-line-face)
+;;(global-hl-line-mode t)
 
 ;; paren-mode
 (setq show-paren-delay 0) ; 表示までの時間
@@ -376,8 +387,6 @@
 ;; multi-term
 ;; ----------------------------
 
-(when (require 'multi-term nil t)
-(setq multi-term-program "/opt/boxen/homebrew/bin/zsh"))
 
 ;; ----------------------------
 ;; TRAMP
