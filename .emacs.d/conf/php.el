@@ -4,28 +4,34 @@
 ;; cf. http://mugijiru.seesaa.net/article/326967860.html
 ;; use php-mode
 
-(defun php-style-hook ()
+(when (require 'php-mode nil t)
+  (setq php-search-url "http://jp.php.net/ja")
+  (setq php-manual-url "http://jp.php.net/manual/ja"))
+
+(defun php-indent-hook ()
   (setq php-mode-force-pear t)
-  (defun ywb-php-lineup-arglist-intro (langelem)
+  (defun my-php-lineup-arglist-intro (langelem)
 	(save-excursion
 	  (goto-char (cdr langelem))
 	  (vector (+ (current-column) c-basic-offset))))
-  (defun ywb-php-lineup-arglist-close (langelem)
+  (defun my-php-lineup-arglist-close (langelem)
 	(save-excursion
 	  (goto-char (cdr langelem))
 	  (vector (current-column))))
-  (c-set-style "stroustrup")    ; インデントは4文字分基本スタイル
-  (c-set-offset 'arglist-intro 'ywb-php-lineup-arglist-intro) ; 配列のインデント関係
-  (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close) ; 配列のインデント関係
-  (c-set-offset 'arglist-cont-nonempty' 4) ; 配列のインデント関係
-  (c-set-offset 'case-label' 4) ; case はインデントする
-  (setq c-tab-always-indent t)
-  (make-local-variable 'tab-width)
-  (make-local-variable 'indent-tabs-mode)
-  (setq tab-width 4)
+;;  (c-set-style "stroustrup") ; default -> gnu
+  (c-set-offset 'arglist-intro 'my-php-lineup-arglist-intro) ; 配列のインデント関係
+  (c-set-offset 'arglist-close 'my-php-lineup-arglist-close) ; 配列のインデント関係
+  (c-set-offset 'arglist-cont-nonempty '4) ; 配列のインデント関係
+  (c-set-offset 'block-open '0)
+  (c-set-offset 'class-open '0)
+  (c-set-offset 'class-close '0)
+  (c-set-offset 'substatement-open '0)
+  (c-set-offset 'case-label '4) ; case はインデントする
+  (setq c-basic-offset 4)
+  (setq c-brace-offset 0)
   (setq indent-tabs-mode t))   ; インデントにタブを使う
-			
-(add-hook 'php-mode-hook 'php-style-hook)
+
+(add-hook 'php-mode-hook 'php-indent-hook)
 
 ;; flymake config
 (defun flymake-php-init ()
@@ -38,18 +44,16 @@
 (add-hook 'php-mode-hook (flymake-mode t))
 
 ;; other
-(add-hook 'php-mode-hook
-          (lambda ()
-            (require 'php-completion)
-            (php-completion-mode t)
-            (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)))
+(defun php-completion-hook ()
+  (when (require 'php-completion nil t)
+	(php-completion-mode t)
+	(define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
 
-(add-hook 'php-mode-hook
-          (lambda ()
-            (make-local-variable 'ac-sources)
-            (setq ac-sources '(
-                               ac-source-words-in-same-mode-buffers
-                               ac-source-php-completion
-                               ac-source-filename
-                               ac-source-etags
-                               ))))
+	(when (require 'auto-complete nil t)
+	  (make-variable-buffer-local 'ac-sources)
+	  (add-to-list 'ac-sources 'ac-source-php-completion)
+	  (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+	  (add-to-list 'ac-sources 'ac-source-filename)
+	  (auto-complete-mode t))))
+
+(add-hook 'php-mode-hook 'php-completion-hook)
