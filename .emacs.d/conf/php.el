@@ -6,11 +6,20 @@
 
 (defun php-style-hook ()
   (setq php-mode-force-pear t)
+  (defun ywb-php-lineup-arglist-intro (langelem)
+	(save-excursion
+	  (goto-char (cdr langelem))
+	  (vector (+ (current-column) c-basic-offset))))
+  (defun ywb-php-lineup-arglist-close (langelem)
+	(save-excursion
+	  (goto-char (cdr langelem))
+	  (vector (current-column))))
   (c-set-style "stroustrup")    ; インデントは4文字分基本スタイル
   (c-set-offset 'arglist-intro 'ywb-php-lineup-arglist-intro) ; 配列のインデント関係
   (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close) ; 配列のインデント関係
   (c-set-offset 'arglist-cont-nonempty' 4) ; 配列のインデント関係
   (c-set-offset 'case-label' 4) ; case はインデントする
+  (setq c-tab-always-indent t)
   (make-local-variable 'tab-width)
   (make-local-variable 'indent-tabs-mode)
   (setq tab-width 4)
