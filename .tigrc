@@ -1,0 +1,10 @@
+# デフォルトの bind generic G !git gc を無効化する
+bind generic g refresh
+bind generic G none
+
+
+# main viewの左端にコミットIDを表示する
+set show-id = yes
+
+# 画面を垂直方向に分割する
+set vertical-split = yes

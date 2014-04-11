@@ -1,14 +1,11 @@
 #LANG
 export LANG=ja_JP.UTF-8
 
-#PATH
-export PATH=/usr/local/bin/:$HOME/.rbenv/shims:$PATH
-eval "$(rbenv init -)"
-
-#source boxen
+# source boxen
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 [ -f /opt/boxen/nvm/nvm.sh ] && source /opt/boxen/nvm/nvm.sh
 
+# rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
@@ -33,15 +30,6 @@ case ${UID} in
     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
         PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
     ;;
-esac
-
-# set terminal title including current directory
-#
-case "${TERM}" in
-kterm*|xterm)
-    precmd() {
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }    ;;
 esac
 
 #auto change directory
@@ -113,16 +101,16 @@ esac
 
 # emacs start option
 #
-alias start-emacs="/usr/local/Cellar/emacs/HEAD/bin/emacs --daemon"
-alias E='/usr/local/Cellar/emacs/HEAD/bin/emacsclient -nw'
-alias kill-emacs="/usr/local/Cellar/emacs/HEAD/bin/emacsclient -e '(kill-emacs)'"
-alias EMACS='/usr/local/Cellar/emacs/HEAD/bin/emacsclient -c'
 
+alias E='emacsclient -nw'
+alias kill-emacs="emacsclient -e '(kill-emacs)'"
+alias start-emacs="emacs --daemon"
+alias EMACS='emacsclient -c'
 
 # for growl by iterm
 
 REPORTTIME=5
 export PGDATA=/usr/local/var/postgres
 
-# editor
-export EDITOR=E
+# .zshrc.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

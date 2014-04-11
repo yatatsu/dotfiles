@@ -398,8 +398,8 @@
 ;; git-gutter-fringe+
 ;; ----------------------------
 
-(require 'git-gutter-fringe+)
-(global-git-gutter+-mode)
+(when (require 'git-gutter-fringe+ nil t)
+  (global-git-gutter+-mode))
 
 ;; ----------------------------
 ;; multi-term
