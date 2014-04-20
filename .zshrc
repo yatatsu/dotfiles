@@ -9,6 +9,12 @@ export LANG=ja_JP.UTF-8
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="simple"
+plugins=(git ruby osx bundler brew rails)
+source $ZSH/oh-my-zsh.sh
+
 ## Default shell configuration
 #
 # set prompt

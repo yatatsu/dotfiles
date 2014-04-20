@@ -1,0 +1,19 @@
+[alias]
+	cm = commit -v
+	st = status
+	co = checkout
+	cp = cherry-pick
+	br = branch
+	ba = branch -a
+	lp = log -p
+	l  = log
+	re = reset
+	re1 = reset HEAD~1
+	re1h = reset HEAD~1 --hard
+	re2 = reset HEAD~2
+	rmc = rm --cached
+
+	di = diff
+	dc = diff --cached
+	d1 = diff HEAD~
+	d2 = diff HEAD~~

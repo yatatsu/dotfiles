@@ -8,3 +8,6 @@ set show-id = yes
 
 # 画面を垂直方向に分割する
 set vertical-split = yes
+
+# graphを常に表示
+set show-rev-graph = yes
