@@ -5,10 +5,6 @@ export LANG=ja_JP.UTF-8
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 [ -f /opt/boxen/nvm/nvm.sh ] && source /opt/boxen/nvm/nvm.sh
 
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="simple"
@@ -112,11 +108,6 @@ alias E='emacsclient -nw'
 alias kill-emacs="emacsclient -e '(kill-emacs)'"
 alias start-emacs="emacs --daemon"
 alias EMACS='emacsclient -c'
-
-# for growl by iterm
-
-REPORTTIME=5
-export PGDATA=/usr/local/var/postgres
 
 # .zshrc.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
