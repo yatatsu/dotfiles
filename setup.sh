@@ -11,7 +11,7 @@ done
 [ ! -d ~/.oh-my-zsh ] && git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 # emacs
-if [ ! -d ~/.emacs.d/ ] ; then
-	[ ! -d ~/.emacs.d/public_repos ] && mkdir ~/.emacs.d/public_repos
-	[ ! -d ~/.emacs.d/elpa ] && mkdir ~/.emacs.d/elpa
+if [ -d ~/dotfiles/.emacs.d/ ] ; then
+	[ ! -d ~/dotfiles/.emacs.d/public_repos ] && mkdir ~/dotfiles/.emacs.d/public_repos
+	[ ! -d ~/dotfiles/.emacs.d/elpa ] && mkdir ~/dotfiles/.emacs.d/elpa
 fi
