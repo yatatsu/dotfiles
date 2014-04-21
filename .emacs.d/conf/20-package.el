@@ -17,7 +17,6 @@
 (defvar installing-package-list
   '(
 	;; mode
-	php-mode
 	markdown-mode
 	js2-mode
 	yaml-mode
