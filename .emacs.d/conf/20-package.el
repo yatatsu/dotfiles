@@ -17,8 +17,8 @@
 (defvar installing-package-list
   '(
 	;; mode
-	markdown-mode
-	js2-mode
+;;	markdown-mode
+;;	js2-mode
 	yaml-mode
 	rinari
 	haml-mode
@@ -31,8 +31,8 @@
 	flycheck
 	multi-term
 	undo-tree
-	wgrep
-	anzu
+;;	wgrep
+;;	anzu
 	hlinum
 	powerline
 	))
