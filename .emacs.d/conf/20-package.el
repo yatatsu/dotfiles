@@ -22,6 +22,7 @@
 	yaml-mode
 	rinari
 	haml-mode
+	haskell-mode
 	;; git
 	magit
 	git-gutter-fringe+
