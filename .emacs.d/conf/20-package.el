@@ -6,10 +6,10 @@
 ;; package
 ;; -------------------
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
+(when (require 'package nil t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (package-initialize))
 
 ;; auto install package
 ;; ;; from http://qiita.com/catatsuy/items/5f1cd86e2522fd3384a0
@@ -17,12 +17,13 @@
 (defvar installing-package-list
   '(
 	;; mode
-;;	markdown-mode
 ;;	js2-mode
+	markdown-mode
 	yaml-mode
 	rinari
 	haml-mode
 	haskell-mode
+	ghc
 	;; git
 	magit
 	git-gutter-fringe+
@@ -33,7 +34,7 @@
 	multi-term
 	undo-tree
 ;;	wgrep
-;;	anzu
+	anzu
 	hlinum
 	powerline
 	))

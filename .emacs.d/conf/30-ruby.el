@@ -2,9 +2,8 @@
 ;; ruby
 ;; -----------------
 
-(setq ruby-indent-level 3
-	  ruby-deep-indent-paren-style nil
-	  ruby-indent-tabs-mode t)
+(setq ruby-indent-level 2
+	  ruby-deep-indent-paren-style nil)
 
 ;; ruby-electric
 ;; inf-ruby

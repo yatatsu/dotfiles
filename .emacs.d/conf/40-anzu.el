@@ -9,4 +9,3 @@
   (global-set-key (kbd "C-c r") 'anzu-query-replace)
   (global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
   )
-
