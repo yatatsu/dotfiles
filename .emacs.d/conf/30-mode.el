@@ -12,8 +12,10 @@
 ;; emacs-lisp-modeのフックをセット
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
-
-
 ;; yaml-mode
 (when (require 'yaml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+
+;; markdown-mode
+(when (require 'markdown-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
