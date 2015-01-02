@@ -11,6 +11,10 @@ ZSH_THEME="wedisagree"
 plugins=(git ruby osx bundler brew rails)
 source $ZSH/oh-my-zsh.sh
 
+# go
+export GOPATH=$HOME
+export PATH=$PATH:$GOPATH/bin
+
 ## Default shell configuration
 #
 # set prompt
@@ -108,6 +112,13 @@ alias E='emacsclient -nw'
 alias kill-emacs="emacsclient -e '(kill-emacs)'"
 alias start-emacs="emacs --daemon"
 alias EMACS='emacsclient -c'
+
+# setting for peco
+for f (~/.zsh/peco-src/*) source "${f}" # load peco sources 
+
+bindkey '^r' peco-select-history
+bindkey '^[' peco-cdr
+bindkey '^]' peco-src
 
 # .zshrc.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

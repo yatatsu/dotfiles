@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOT_FILES=( .zshrc .emacs.d .tigrc .gitconfig.global)
+DOT_FILES=( .zshrc .emacs.d .tigrc .gitconfig.global .zsh .config)
 
 for file in ${DOT_FILES[@]}
 do

@@ -17,3 +17,5 @@
 	dc = diff --cached
 	d1 = diff HEAD~
 	d2 = diff HEAD~~
+[ghq]
+	root = ~/src
