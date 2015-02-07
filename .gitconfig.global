@@ -19,3 +19,7 @@
 	d2 = diff HEAD~~
 [ghq]
 	root = ~/src
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less

@@ -120,5 +120,6 @@ bindkey '^r' peco-select-history
 bindkey '^[' peco-cdr
 bindkey '^]' peco-src
 
+
 # .zshrc.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
