@@ -1,15 +1,14 @@
 #LANG
 export LANG=ja_JP.UTF-8
 
-# source boxen
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
-[ -f /opt/boxen/nvm/nvm.sh ] && source /opt/boxen/nvm/nvm.sh
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="wedisagree"
 plugins=(git ruby osx bundler brew rails)
 source $ZSH/oh-my-zsh.sh
+
+# homebrew
+export PATH=$HOME/.homebrew/bin:$PATH
 
 # go
 export GOPATH=$HOME
