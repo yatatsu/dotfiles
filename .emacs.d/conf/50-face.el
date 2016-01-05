@@ -55,17 +55,17 @@
 ;; ------------------
 ;; font
 ;; ------------------
-;; for GUI
-;; フォント設定
-(set-face-attribute 'default nil
-                    :family "inconsolata"
-                    :height 140)
- 
-(when (require 'font-family-list nil t)
-  (set-fontset-font
-   nil 'japanese-jisx0208
-   (font-spec :family "TakaoExMincho"))
-  )
+;; Ricty
+(set-face-attribute 'default nil :family "Ricty Discord" :height 150)
+(set-fontset-font (frame-parameter nil 'font)
+                  'japanese-jisx0208
+                  (cons "Ricty Discord" "iso10646-1"))
+(set-fontset-font (frame-parameter nil 'font)
+                  'japanese-jisx0212
+                  (cons "Ricty Discord" "iso10646-1"))
+(set-fontset-font (frame-parameter nil 'font)
+                  'katakana-jisx0201
+                  (cons "Ricty Discord" "iso10646-1"))
 
 ;; highlignt
 (defface my-hl-line-face
