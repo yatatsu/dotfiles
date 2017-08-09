@@ -7,6 +7,8 @@
 	ba = branch -a
 	lp = log -p
 	l  = log
+	lg = log --oneline --graph --decorate --all
+	lgs = log --graph --pretty=format:'commit: %C(bold red)%h%Creset %C(red)<%H>%Creset %C(bold magenta)%d %Creset%ndate: %C(bold yellow)%cd %Creset%C(yellow)%cr%Creset%nauthor: %C(bold blue)%an%Creset %C(blue)<%ae>%Creset%n%C(cyan)%s%n%Creset'
 	re = reset
 	re1 = reset HEAD~1
 	re1h = reset HEAD~1 --hard
