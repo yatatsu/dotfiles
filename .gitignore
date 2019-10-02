@@ -61,3 +61,8 @@ tramp
 /elpa/
 
 
+# fish
+.config/fish/*
+.config/fisher/*
+!.config/fish/fishfile
+!.config/fish/config.fish
