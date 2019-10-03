@@ -26,7 +26,6 @@
 	ghc
 	;; git
 	magit
-	git-gutter-fringe+
 	git-commit-mode
 	git-rebase-mode
 	;; other
@@ -34,7 +33,6 @@
 	multi-term
 	undo-tree
 	wgrep
-;;	anzu
 	hlinum
 	powerline
 	))

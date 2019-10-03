@@ -6,12 +6,11 @@ This is yatatsu's dotfiles.
 ## content
 Here is line up.
 
-- .zshrc
 - .emacs.d/
 - .gitconfig.global
 - .gitignore
 - .tigrc
-- .zshrc
+- .config
 - setup.sh
 
 ## usage

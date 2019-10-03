@@ -2,15 +2,6 @@
 ;; 40-git.el
 ;;
 
-
-;; ----------------------------
-;; git-gutter-fringe+
-;; https://github.com/nonsequitur/git-gutter-fringe-plus
-;; ----------------------------
-
-(when (require 'git-gutter-fringe+ nil t)
-  (global-git-gutter+-mode))
-
 ;; ----------------------------
 ;; magit
 ;; https://github.com/magit/magit
